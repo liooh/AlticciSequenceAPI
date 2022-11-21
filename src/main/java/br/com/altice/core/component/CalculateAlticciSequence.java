@@ -5,6 +5,8 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -13,6 +15,8 @@ import br.com.altice.core.service.AlticciSequenceService;
 
 @Component
 public class CalculateAlticciSequence {
+
+	private static final Logger log = LoggerFactory.getLogger(CalculateAlticciSequence.class);
 
 	private static final Map<BigInteger, BigInteger> resultSequenceMemo = new HashMap<>();
 
@@ -40,14 +44,19 @@ public class CalculateAlticciSequence {
 		}
 
 		BigInteger result = calculate(number.subtract(BigInteger.valueOf(3)))
-			.add(calculate(number.subtract(BigInteger.valueOf(2))));
+				.add(calculate(number.subtract(BigInteger.valueOf(2))));
 		resultSequenceMemo.put(number, result);
 
-		AlticciSequence alticciSequence = new AlticciSequence();
-		alticciSequence.setNumber(number);
-		alticciSequence.setValue(result);
+		try {
+			AlticciSequence alticciSequence = new AlticciSequence();
+			alticciSequence.setNumber(number);
+			alticciSequence.setValue(result);
 
-		service.create(alticciSequence);
+			service.create(alticciSequence); // save in a disk memory result
+		} catch (Exception e) {
+			log.info("Error for to save the alticci sequence: {}", e.getMessage());
+		}
+
 		return result;
 	}
 

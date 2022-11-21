@@ -1,3 +1,4 @@
+
 package br.com.altice.core.controller;
 
 import java.math.BigInteger;
@@ -24,9 +25,15 @@ public class AlticciSequenceController {
 	@GetMapping("/alticci/{number}")
 	public BigInteger findAlticciSequence(@PathVariable BigInteger number) {
 		log.info("Started calculate alticci sequence for number: {}", number);
-		BigInteger result = calculateAlticciSequence.calculate(number);
-		log.info("Finished calculate alticci sequence for number: {} and the result is: {}", number, result);
-		return result;
+
+		try {
+			BigInteger result = calculateAlticciSequence.calculate(number);
+			log.info("Finished calculate alticci sequence for number: {} and the result is: {}", number, result);
+			return result;
+		} catch (Exception e) {
+			log.error(e.getMessage());
+			return BigInteger.valueOf(-1);
+		}
 	}
 
 }

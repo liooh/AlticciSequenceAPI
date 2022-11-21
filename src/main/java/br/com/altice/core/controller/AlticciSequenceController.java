@@ -1,5 +1,7 @@
 package br.com.altice.core.controller;
 
+import java.math.BigInteger;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,9 +22,9 @@ public class AlticciSequenceController {
 	private CalculateAlticciSequence calculateAlticciSequence;
 
 	@GetMapping("/alticci/{number}")
-	public Long findAlticciSequence(@PathVariable Long number) {
+	public BigInteger findAlticciSequence(@PathVariable BigInteger number) {
 		log.info("Started calculate alticci sequence for number: {}", number);
-		long result = calculateAlticciSequence.calculate(number);
+		BigInteger result = calculateAlticciSequence.calculate(number);
 		log.info("Finished calculate alticci sequence for number: {} and the result is: {}", number, result);
 		return result;
 	}

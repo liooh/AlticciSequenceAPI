@@ -2,6 +2,8 @@ package br.com.altice.core.component;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import java.math.BigInteger;
+
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -16,38 +18,38 @@ class CalculateAlticciSequenceTest {
 
 	@Test
 	void testAlticciSequenceWhenNumberIsZero() {
-		Long alticciSequence = calculateAlticcieSequence.calculate(0L);
-		assertEquals(0, alticciSequence);
+		BigInteger alticciSequence = calculateAlticcieSequence.calculate(BigInteger.valueOf(0));
+		assertEquals(BigInteger.valueOf(0), alticciSequence);
 	}
 
 	@Test
 	void testAlticciSequenceWhenNumberIsOne() {
-		Long alticciSequence = calculateAlticcieSequence.calculate(1L);
-		assertEquals(1, alticciSequence);
+		BigInteger alticciSequence = calculateAlticcieSequence.calculate(BigInteger.valueOf(1));
+		assertEquals(BigInteger.valueOf(1), alticciSequence);
 	}
 
 	@Test
 	void testAlticciSequenceWhenNumberIsTwo() {
-		Long alticciSequence = calculateAlticcieSequence.calculate(2L);
-		assertEquals(1, alticciSequence);
+		BigInteger alticciSequence = calculateAlticcieSequence.calculate(BigInteger.valueOf(2));
+		assertEquals(BigInteger.valueOf(1), alticciSequence);
 	}
 
 	@Test
 	void testAlticciSequenceWhenNumberIsThree() {
-		Long alticciSequence = calculateAlticcieSequence.calculate(3L);
-		assertEquals(1, alticciSequence);
+		BigInteger alticciSequence = calculateAlticcieSequence.calculate(BigInteger.valueOf(3));
+		assertEquals(BigInteger.valueOf(1), alticciSequence);
 	}
 
 	@Test
 	void testAlticciSequenceWhenNumberIsFive() {
-		Long alticciSequence = calculateAlticcieSequence.calculate(5L);
-		assertEquals(2, alticciSequence);
+		BigInteger alticciSequence = calculateAlticcieSequence.calculate(BigInteger.valueOf(5));
+		assertEquals(BigInteger.valueOf(2), alticciSequence);
 	}
 
 	@Test
 	void testAlticciSequenceWhenNumberIsTen() {
-		Long alticciSequence = calculateAlticcieSequence.calculate(10L);
-		assertEquals(9, alticciSequence);
+		BigInteger alticciSequence = calculateAlticcieSequence.calculate(BigInteger.valueOf(10));
+		assertEquals(BigInteger.valueOf(9), alticciSequence);
 	}
 
 }

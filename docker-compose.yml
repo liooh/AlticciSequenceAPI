@@ -1,26 +1,5 @@
 version: '3.0'
 services:
-  api:
-    build:
-      dockerfile: Dockerfile
-      context: .
-    container_name: alticci-sequence-api
-    restart: always
-    environment:
-      - DATABASE_URL=jdbc:mysql://mysqldb:3306/altice?useSSL=false
-      - DATABASE_USERNAME=root
-      - DATABASE_PASSWORD=teste123456
-    ports:
-      - 9000:9000
-    expose:
-      - 9000
-    command: mvn spring-boot:run
-    links:
-      - database-mysql:database-mysql
-    networks:
-      - altice-network
-    depends_on:
-    - database-mysql
   database-mysql:
     image: mysql:5.7
     restart: always
@@ -29,10 +8,33 @@ services:
       MYSQL_ROOT_PASSWORD: teste123456
     ports:
       - 3306:3306
+    networks:
+      - altice-network
     volumes:
       - database_mysql_data:/var/lib/mysql
     expose:
       - 3306
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: alticci-sequence-api
+    restart: always
+    networks:
+      - altice-network
+    ports:
+      - 9000:9000
+    expose:
+      - 9000
+    command: mvn spring-boot:run
+    depends_on:
+      - database-mysql
+    links:
+      - database-mysql:database-mysql
+    environment:
+      - DATABASE_URL=jdbc:mysql://database-mysql:3306/altice?useSSL=false
+      - DATABASE_USERNAME=root
+      - DATABASE_PASSWORD=teste123456
 networks:
   altice-network:
     driver: bridge
